@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -55,4 +59,9 @@ dependencies {
     /* Hilt */
     implementation "com.google.dagger:hilt-android:$versions.google.hilt"
     kapt "com.google.dagger:hilt-android-compiler:$versions.google.hilt"
+
+    /* Lifecycle */
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.androidx.lifecycle.extensions"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$versions.androidx.lifecycle.common_java8"
+
 }
