@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="AutoUpdateApp.app" target="11" />
+      <module name="AutoUpdateApp.polycom.data" target="11" />
+      <module name="AutoUpdateApp.polycom.network" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

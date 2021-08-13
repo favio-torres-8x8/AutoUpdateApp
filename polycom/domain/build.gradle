@@ -1,0 +1,16 @@
+apply from: configs.kotlin.library
+apply plugin: "kotlin-kapt"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+
+    /* JavaX */
+    implementation "javax.inject:javax.inject:$versions.javax.inject"
+
+    /* Coroutines */
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines.android"
+}

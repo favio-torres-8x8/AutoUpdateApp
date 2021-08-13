@@ -1,0 +1,20 @@
+apply from: configs.kotlin.library
+apply plugin: "kotlin-kapt"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+
+    /* Coroutines */
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines.android"
+
+    /* Retrofit */
+    implementation "com.squareup.retrofit2:retrofit:$versions.square.retrofit.client"
+
+    /* Moshi */
+    implementation "com.squareup.moshi:moshi:$versions.square.moshi.client"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.square.moshi.codegen"
+}

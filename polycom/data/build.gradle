@@ -1,0 +1,17 @@
+apply from: configs.kotlin.androidLibrary
+apply plugin: "kotlin-kapt"
+
+dependencies {
+
+    /* Libs */
+    api libs.polycom.api
+    api libs.polycom.domain
+    api libs.polycom.network
+
+    /* Coroutines */
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines.android"
+
+    /* Hilt */
+    implementation "com.google.dagger:hilt-android:$versions.google.hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.google.hilt"
+}

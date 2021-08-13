@@ -1,0 +1,48 @@
+ext.versions = [
+        kotlin: "1.4.32",
+        android: "4.2.0",
+        buildTools: "29.0.2",
+        minSdk: 23,
+        targetSdk: 30,
+        compileSdk: 30,
+        versionCode: 1,
+        versionName: "1.0",
+        coroutines: [
+                android: "1.4.2"
+        ],
+        google: [
+                hilt: "2.38.1"
+        ],
+        javax: [
+              inject: "1"
+        ],
+        square: [
+                retrofit: [
+                        client: "2.9.0",
+                        converter: "2.6.0"
+                ],
+                moshi: [
+                        client: "1.9.2",
+                        codegen: "1.11.0"
+                ]
+        ]
+]
+
+ext.configs = [
+        kotlin: [
+                androidLibrary: "${project.rootDir}/android-library.gradle",
+                library: "${project.rootDir}/kotlin-library.gradle",
+        ]
+]
+
+ext.libs = [
+        kotlin: [
+                stdlib: "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+        ],
+        polycom: [
+                api: project(":polycom:api"),
+                data: project(":polycom:data"),
+                domain: project(":polycom:domain"),
+                network: project(":polycom:network"),
+        ]
+]

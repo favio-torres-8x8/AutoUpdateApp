@@ -1,0 +1,20 @@
+apply from: configs.kotlin.androidLibrary
+apply plugin: "kotlin-kapt"
+
+dependencies {
+
+    /* Libs */
+    api libs.polycom.api
+
+    /* Retrofit */
+    api "com.squareup.retrofit2:retrofit:$versions.square.retrofit.client"
+    api "com.squareup.retrofit2:converter-moshi:$versions.square.retrofit.client"
+    implementation "com.squareup.retrofit2:converter-scalars:$versions.square.retrofit.converter"
+
+    /* Coroutines */
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines.android"
+
+    /* Hilt */
+    implementation "com.google.dagger:hilt-android:$versions.google.hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.google.hilt"
+}

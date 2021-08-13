@@ -11,6 +11,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/polycom" />
+            <option value="$PROJECT_DIR$/polycom/api" />
+            <option value="$PROJECT_DIR$/polycom/data" />
+            <option value="$PROJECT_DIR$/polycom/domain" />
+            <option value="$PROJECT_DIR$/polycom/network" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
