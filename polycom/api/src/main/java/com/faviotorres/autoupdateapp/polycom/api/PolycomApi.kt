@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface PolycomApi {
 
-    @GET("favio-torres-8x8/AutoUpdateApp/blob/main/api/version.json")
+    @GET("favio-torres-8x8/AutoUpdateApp/main/api/version.json")
     suspend fun info(): AppInfoEntity
 }
