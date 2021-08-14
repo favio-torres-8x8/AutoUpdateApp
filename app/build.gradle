@@ -53,6 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     /* Libs */
+    api libs.persistence
     api libs.polycom.data
     api libs.polycom.network
 

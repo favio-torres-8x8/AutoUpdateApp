@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="AutoUpdateApp.app" target="11" />
+      <module name="AutoUpdateApp.persistence" target="11" />
       <module name="AutoUpdateApp.polycom.data" target="11" />
       <module name="AutoUpdateApp.polycom.network" target="11" />
     </bytecodeTargetLevel>

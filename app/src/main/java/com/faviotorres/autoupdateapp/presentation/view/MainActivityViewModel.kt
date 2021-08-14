@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.faviotorres.autoupdateapp.BuildConfig
 import com.faviotorres.autoupdateapp.polycom.domain.interactor.PolycomResult
+import com.faviotorres.autoupdateapp.polycom.domain.interactor.usecase.ApkUseCase
 import com.faviotorres.autoupdateapp.polycom.domain.interactor.usecase.AppInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,14 +17,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val appInfoUseCase: AppInfoUseCase
+    private val appInfoUseCase: AppInfoUseCase,
+    private val apkUseCase: ApkUseCase,
 ): ViewModel(), DefaultLifecycleObserver {
 
+    private var newVersionCode: String = ""
+
     private val _appVersion = MutableLiveData<String>()
-    val appVersion: LiveData<String> get() = _appVersion
+    val appVersion: LiveData<String> = _appVersion
 
     private val _newUpdate = MutableLiveData<Boolean>()
-    val newUpdate: LiveData<Boolean> get() = _newUpdate
+    val newUpdate: LiveData<Boolean> = _newUpdate
+
+    private val _newApkPath = MutableLiveData<String>()
+    val newApkPath: LiveData<String> = _newApkPath
+
+
 
     /* Lifecycle */
 
@@ -38,7 +47,17 @@ class MainActivityViewModel @Inject constructor(
     /* Click Listeners */
 
     fun update() {
-        Log.d("VIEW MODEL", "updating!!!!!!")
+        if (newVersionCode.isEmpty()) return
+
+        viewModelScope.launch {
+            when (val result = apkUseCase(newVersionCode)) {
+                is PolycomResult.Failure -> Log.e("VIEW MODEL", "failure: ", result.exception)
+                is PolycomResult.Success -> {
+                    Log.d("VIEW MODEL", "success: ${result.data}")
+                    _newApkPath.value = result.data.orEmpty()
+                }
+            }
+        }
     }
 
 
@@ -58,6 +77,8 @@ class MainActivityViewModel @Inject constructor(
             when (val result = appInfoUseCase()) {
                 is PolycomResult.Failure -> Log.e("VIEW MODEL", "failure: ", result.exception)
                 is PolycomResult.Success -> {
+                    Log.d("VIEW MODEL", "app info: ${result.data}")
+                    newVersionCode = result.data.versionCode.toString()
                     _newUpdate.value = result.data.versionCode > BuildConfig.VERSION_CODE
                 }
             }

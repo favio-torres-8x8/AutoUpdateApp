@@ -5,6 +5,6 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("isVisible")
-fun View.isVisible(visible: Boolean) {
-    this.isVisible = visible
+fun isVisible(view: View, visible: Boolean) {
+    view.isVisible = visible
 }

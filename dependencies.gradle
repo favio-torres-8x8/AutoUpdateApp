@@ -45,10 +45,11 @@ ext.libs = [
         kotlin: [
                 stdlib: "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
         ],
+        persistence: project(":persistence"),
         polycom: [
                 api: project(":polycom:api"),
                 data: project(":polycom:data"),
                 domain: project(":polycom:domain"),
                 network: project(":polycom:network"),
-        ]
+        ],
 ]

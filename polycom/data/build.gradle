@@ -4,6 +4,7 @@ apply plugin: "kotlin-kapt"
 dependencies {
 
     /* Libs */
+    implementation libs.persistence
     api libs.polycom.api
     api libs.polycom.domain
     api libs.polycom.network
