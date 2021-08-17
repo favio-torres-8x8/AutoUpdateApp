@@ -4,4 +4,5 @@ data class AppInfo(
     val versionCode: Int,
     val versionName: String,
     val description: String,
+    val url: String
 )

@@ -10,10 +10,10 @@ class ApkUseCase @Inject constructor(
     private val repository: PolycomApiRepository
 ) {
 
-    suspend operator fun invoke(versionCode: String): PolycomResult<String?> {
+    suspend operator fun invoke(versionCode: String, url: String): PolycomResult<String?> {
         return withContext(Dispatchers.IO) {
             try {
-                val inputStream = repository.apk(versionCode)
+                val inputStream = repository.apk(versionCode, url)
                 PolycomResult.Success(inputStream)
             } catch (e: Exception) {
                 PolycomResult.Failure(e)

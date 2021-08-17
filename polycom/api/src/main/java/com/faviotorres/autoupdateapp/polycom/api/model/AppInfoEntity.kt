@@ -8,4 +8,5 @@ data class AppInfoEntity(
     @Json(name = "version_code") val versionCode: Int = 0,
     @Json(name = "version_name") val versionName: String = "",
     val description: String = "",
+    val url: String = ""
 )

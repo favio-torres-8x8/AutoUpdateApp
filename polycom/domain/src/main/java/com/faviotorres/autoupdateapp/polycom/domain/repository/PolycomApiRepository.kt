@@ -5,5 +5,5 @@ import com.faviotorres.autoupdateapp.polycom.domain.model.AppInfo
 interface PolycomApiRepository {
 
     suspend fun info(): AppInfo
-    suspend fun apk(versionCode: String): String?
+    suspend fun apk(versionCode: String, url: String): String?
 }

@@ -22,6 +22,7 @@ class MainActivityViewModel @Inject constructor(
 ): ViewModel(), DefaultLifecycleObserver {
 
     private var newVersionCode: String = ""
+    private var newApkUrl: String = ""
 
     private val _appVersion = MutableLiveData<String>()
     val appVersion: LiveData<String> = _appVersion
@@ -47,10 +48,10 @@ class MainActivityViewModel @Inject constructor(
     /* Click Listeners */
 
     fun update() {
-        if (newVersionCode.isEmpty()) return
+        if (newVersionCode.isEmpty() || newVersionCode.isEmpty()) return
 
         viewModelScope.launch {
-            when (val result = apkUseCase(newVersionCode)) {
+            when (val result = apkUseCase(newVersionCode, newApkUrl)) {
                 is PolycomResult.Failure -> Log.e("VIEW MODEL", "failure: ", result.exception)
                 is PolycomResult.Success -> {
                     Log.d("VIEW MODEL", "success: ${result.data}")
@@ -78,8 +79,11 @@ class MainActivityViewModel @Inject constructor(
                 is PolycomResult.Failure -> Log.e("VIEW MODEL", "failure: ", result.exception)
                 is PolycomResult.Success -> {
                     Log.d("VIEW MODEL", "app info: ${result.data}")
-                    newVersionCode = result.data.versionCode.toString()
-                    _newUpdate.value = result.data.versionCode > BuildConfig.VERSION_CODE
+                    with(result.data) {
+                        newVersionCode = versionCode.toString()
+                        newApkUrl = url
+                        _newUpdate.value = versionCode > BuildConfig.VERSION_CODE
+                    }
                 }
             }
         }

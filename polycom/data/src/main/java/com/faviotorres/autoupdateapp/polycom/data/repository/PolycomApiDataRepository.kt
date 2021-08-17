@@ -18,8 +18,7 @@ class PolycomApiDataRepository @Inject constructor(
         return api.info().toDomain()
     }
 
-    override suspend fun apk(versionCode: String): String? {
-        val url = "https://github.com/favio-torres-8x8/AutoUpdateApp/blob/main/apks/app-debug-$versionCode.apk?raw=true"
+    override suspend fun apk(versionCode: String, url: String): String? {
         val response = api.apk(url)
         val subDirectory = fileManager.getCacheSubDirectory("apks")
         val apk = File(subDirectory, "apk-release-$versionCode.apk")
