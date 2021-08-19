@@ -15,4 +15,9 @@ dependencies {
     /* Hilt */
     implementation "com.google.dagger:hilt-android:$versions.google.hilt"
     kapt "com.google.dagger:hilt-android-compiler:$versions.google.hilt"
+    api "androidx.hilt:hilt-work:$versions.androidx.hilt"
+    kapt "androidx.hilt:hilt-compiler:$versions.androidx.hilt"
+
+    /* Work Manager */
+    api "androidx.work:work-runtime-ktx:$versions.androidx.work_ktx"
 }

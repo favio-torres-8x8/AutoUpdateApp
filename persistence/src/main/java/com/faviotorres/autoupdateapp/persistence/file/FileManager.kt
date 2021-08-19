@@ -52,15 +52,16 @@ class FileManager @Inject constructor(
     }
 
     @Suppress("DEPRECATION")
-    fun isNewUpdate(packageManager: PackageManager, path: String, currentVersionCode: Int): Boolean {
+    fun isNewUpdate(packageManager: PackageManager, path: String, newVersionCodeFromJson: Long): Boolean {
         return packageManager.getPackageArchiveInfo(path, 0)?.let { info ->
-            val newVersionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val newVersionCodeFromApk = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 info.longVersionCode
             } else {
                 info.versionCode.toLong()
             }
-            Log.d("ACT", "installing apk with version code: $newVersionCode and version name: ${info.versionName}")
-            currentVersionCode < newVersionCode
+            Log.d("FILE MANAGER", "are versions the same? json: $newVersionCodeFromJson - apk: $newVersionCodeFromApk")
+            Log.d("FILE MANAGER", "installing apk with version code: $newVersionCodeFromApk and version name: ${info.versionName}")
+            newVersionCodeFromJson == newVersionCodeFromApk
         } ?: false
     }
 }

@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import com.faviotorres.autoupdateapp.BuildConfig
 import com.faviotorres.autoupdateapp.R
 import com.faviotorres.autoupdateapp.databinding.ActivityMainBinding
+import com.faviotorres.autoupdateapp.model.MainEvent
 import com.faviotorres.autoupdateapp.persistence.file.FileManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), EXTERNAL_STORAGE_REQUEST)
         }
 
+        observeEvent()
         observeNewApkPath()
     }
 
@@ -60,10 +62,18 @@ class MainActivity : AppCompatActivity() {
 
     /* Live Data Observers */
 
+    private fun observeEvent() {
+        viewModel.event.observe(this) { event ->
+            when (event) {
+                MainEvent.Update -> viewModel.update(this)
+            }
+        }
+    }
+
     private fun observeNewApkPath() {
         viewModel.newApkPath.observe(this) { path ->
             if (!path.endsWith("apk")) return@observe
-            if (!fileManager.isNewUpdate(packageManager, path, BuildConfig.VERSION_CODE)) return@observe
+            if (!fileManager.isNewUpdate(packageManager, path, viewModel.newVersionCode)) return@observe
 
             val intent = Intent(Intent.ACTION_VIEW)
             val file = File(path)
