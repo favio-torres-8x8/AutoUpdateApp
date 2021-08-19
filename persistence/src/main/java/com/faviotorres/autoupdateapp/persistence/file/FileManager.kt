@@ -1,6 +1,8 @@
 package com.faviotorres.autoupdateapp.persistence.file
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -47,5 +49,18 @@ class FileManager @Inject constructor(
             fileOutputStream.write(readBuffer, 0, bytesRead)
             Log.d("FILE MANAGER", "writing output - read: $bytesRead")
         }
+    }
+
+    @Suppress("DEPRECATION")
+    fun isNewUpdate(packageManager: PackageManager, path: String, currentVersionCode: Int): Boolean {
+        return packageManager.getPackageArchiveInfo(path, 0)?.let { info ->
+            val newVersionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                info.longVersionCode
+            } else {
+                info.versionCode.toLong()
+            }
+            Log.d("ACT", "installing apk with version code: $newVersionCode and version name: ${info.versionName}")
+            currentVersionCode < newVersionCode
+        } ?: false
     }
 }

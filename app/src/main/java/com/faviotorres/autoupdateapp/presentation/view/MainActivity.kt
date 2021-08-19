@@ -15,8 +15,10 @@ import androidx.databinding.DataBindingUtil
 import com.faviotorres.autoupdateapp.BuildConfig
 import com.faviotorres.autoupdateapp.R
 import com.faviotorres.autoupdateapp.databinding.ActivityMainBinding
+import com.faviotorres.autoupdateapp.persistence.file.FileManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -27,6 +29,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val viewModel: MainActivityViewModel by viewModels()
+
+    @Inject
+    lateinit var fileManager: FileManager
 
     private lateinit var binding: ActivityMainBinding
 
@@ -58,6 +63,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeNewApkPath() {
         viewModel.newApkPath.observe(this) { path ->
             if (!path.endsWith("apk")) return@observe
+            if (!fileManager.isNewUpdate(packageManager, path, BuildConfig.VERSION_CODE)) return@observe
 
             val intent = Intent(Intent.ACTION_VIEW)
             val file = File(path)
